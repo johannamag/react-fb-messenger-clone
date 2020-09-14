@@ -1,26 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Message from "./Message";
+import { Button, FormControl, InputLabel, Input } from "@material-ui/core";
+import "./App.css";
 
-function App() {
+export default function App() {
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([
+    { username: "sonny", text: "hello" },
+    { username: "qazi", text: "hi" },
+  ]);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    setUsername(prompt("Please enter your name:"));
+  }, []);
+
+  const sendMessage = (event) => {
+    event.preventDefault();
+    setMessages([...messages, { username: username, text: input }]);
+    setInput("");
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Messenger</h1>
+      <h2>Welcome {username}</h2>
+      <form>
+        <FormControl>
+          <InputLabel>Enter a message...</InputLabel>
+          <Input
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+          />
+          <Button
+            disabled={!input}
+            variant="contained"
+            color="primary"
+            type="submit"
+            onClick={sendMessage}
+          >
+            Send Message
+          </Button>
+        </FormControl>
+      </form>
+
+      {messages.map((message) => (
+        <Message username={username} message={message} />
+      ))}
     </div>
   );
 }
-
-export default App;
