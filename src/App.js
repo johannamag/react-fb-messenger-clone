@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Message from "./Message";
-import { Button, FormControl, InputLabel, Input } from "@material-ui/core";
+import { FormControl, Input } from "@material-ui/core";
 import "./App.css";
 import db from "./firebase";
 import firebase from "firebase";
@@ -44,17 +44,19 @@ export default function App() {
         alt="Messenger Logo"
         src="https://facebookbrand.com/wp-content/uploads/2018/09/Header-e1538151782912.png?w=100&h=100"
       />
-      <h1>Messenger</h1>
+      <h1>Messenger Clone</h1>
       <h2>Welcome {username}</h2>
       <form className="app__form">
-        <FormControl>
-          <InputLabel>Enter a message...</InputLabel>
+        <FormControl className="app__formControl">
           <Input
+            className="app__input"
+            placeholder="Enter a message..."
             value={input}
             onChange={(event) => setInput(event.target.value)}
           />
 
           <IconButton
+            className="app__iconButton"
             disabled={!input}
             variant="contained"
             color="primary"
